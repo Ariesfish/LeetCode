@@ -1,7 +1,11 @@
 package com.leetcode;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 
 class ListNode {
     int val;
@@ -84,7 +88,7 @@ public class Solution {
      * @return Index pair
      * @throws IllegalArgumentException On no solution
      */
-    public int[] twoSum(int[] nums, int target) {
+    public int[] twoSum(@NotNull int[] nums, int target) {
         HashMap<Integer, Integer> numPool = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
@@ -115,8 +119,8 @@ public class Solution {
      *   Output: 7 -> 0 -> 8
      *   Explanation: 342 + 465 = 807.
      *
-     * @param l1 one number
-     * @param l2 another number
+     * @param l1 One number
+     * @param l2 Another number
      * @return ListNode sum of the two numbers
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -142,6 +146,53 @@ public class Solution {
         }
 
         return dummy.next;
+    }
+
+    /**
+     * 3. Longest Substring Without Repeating Characters
+     *
+     * Given a string, find the length of the longest substring without repeating characters.
+     *
+     * Example 1:
+     *   Input: "abcabcbb"
+     *   Output: 3
+     *   Explanation: The answer is "abc", with the length of 3.
+     *
+     * Example 2:
+     *   Input: "bbbbb"
+     *   Output: 1
+     *   Explanation: The answer is "b", with the length of 1.
+     *
+     * Example 3:
+     *   Input: "pwwkew"
+     *   Output: 3
+     *   Explanation: The answer is "wke", with the length of 3.
+     *   Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+     *
+     * @param s Given string
+     * @return Length of the longest substring without repeating characters
+     */
+    public int lengthOfLongestSubstring(String s) {
+        Queue<Character> slideWindow = new ArrayDeque<>();
+        int longest = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            Character current = s.charAt(i);
+            /* check whether or not slide windows contains current character,
+               if so, then remove previous substring until this character
+             */
+            if (slideWindow.contains(current)) {
+                Character top;
+                do {
+                    top = slideWindow.poll();
+                } while (top != current);
+            }
+
+            slideWindow.add(current);
+            longest = Math.max(longest, slideWindow.size());
+        }
+
+        return longest;
     }
 
     /**
@@ -177,8 +228,8 @@ public class Solution {
      * P     I
      *
      * @param s Given string
-     * @param numRows row to zigzag
-     * @return new zigzag string
+     * @param numRows Row to zigzag
+     * @return New zigzag string
      */
     public String zigzagConvert (String s, int numRows) {
         // special cases
@@ -255,7 +306,7 @@ public class Solution {
      * @param nums A sorted array
      * @return New length of the array
      */
-    public int removeDuplicates(int[] nums) {
+    public int removeDuplicates(@NotNull int[] nums) {
         if (nums.length == 0) {
             return 0;
         }

@@ -9,71 +9,114 @@ class SolutionTest {
 
     private Solution solution = new Solution();
 
-    private int[] nums1 = { 2, 7, 11, 15 };
-    private int[] nums2 = { 5, 3, 7, 3, 9 };
-    private int[] nums3 = { 1, 2, 2, 3, 4, 5, 5, 7, 7, 7 };
-
-    private int[] num1 = { 2, 4, 3 };
-    private int[] num2 = { 5, 6, 4 };
-    private int[] num3 = { 7, 0, 8 };
-    private int[] num4 = { 1 };
-    private int[] num5 = { 9, 9 };
-    private int[] num6 = { 0, 0, 1 };
-    private ListNode listNode1 = ListNode.toListNode(num1);
-    private ListNode listNode2 = ListNode.toListNode(num2);
-    private ListNode listNode3 = ListNode.toListNode(num4);
-    private ListNode listNode4 = ListNode.toListNode(num5);
-
-    private String s = "PAYPALISHIRING";
-
     @Test
     @DisplayName("1.Two Sum: normal case")
     void twoSum1() {
+        int[] nums = { 2, 7, 11, 15 };
         int target = 13;
         int[] answer = { 0, 2 };
-        assertArrayEquals(answer, solution.twoSum(nums1, target));
+        assertArrayEquals(answer, solution.twoSum(nums, target));
     }
 
     @Test
     @DisplayName("1.Two Sum: same numbers")
     void twoSum2() {
+        int[] nums = { 5, 3, 7, 3, 9 };
         int target = 6;
         int[] answer = { 1, 3 };
-        assertArrayEquals(answer, solution.twoSum(nums2, target));
+        assertArrayEquals(answer, solution.twoSum(nums, target));
     }
 
     @Test
     @DisplayName("1.Two Sum: no answer, throw exception")
     void twoSumException() {
+        int[] nums = { 2, 7, 11, 15 };
         int target = 20;
-        assertThrows(IllegalArgumentException.class, () -> { solution.twoSum(nums1, target); });
+        assertThrows(IllegalArgumentException.class, () -> { solution.twoSum(nums, target); });
     }
 
     @Test
-    @DisplayName("2. Add Two Numbers: normal case")
+    @DisplayName("2.Add Two Numbers: normal case")
     void addTwoNumbers1() {
+        int[] num1 = { 2, 4, 3 };
+        int[] num2 = { 5, 6, 4 };
+        int[] num3 = { 7, 0, 8 };
+        ListNode listNode1 = ListNode.toListNode(num1);
+        ListNode listNode2 = ListNode.toListNode(num2);
         ListNode answer = ListNode.toListNode(num3);
-        System.out.println("num1:   " + listNode1.toString());
-        System.out.println("num2:   " + listNode2.toString());
         assertEquals(answer, solution.addTwoNumbers(listNode1, listNode2));
-        System.out.println("answer: " + answer.toString());
     }
 
     @Test
-    @DisplayName("2. Add Two Numbers: special case")
+    @DisplayName("2.Add Two Numbers: special case")
     void addTwoNumbers2() {
-        ListNode answer = ListNode.toListNode(num6);
-        assertEquals(answer, solution.addTwoNumbers(listNode3, listNode4));
+        int[] num1 = { 1 };
+        int[] num2 = { 9, 9 };
+        int[] num3 = { 0, 0, 1 };
+        ListNode listNode1 = ListNode.toListNode(num1);
+        ListNode listNode2 = ListNode.toListNode(num2);
+        ListNode answer = ListNode.toListNode(num3);
+        assertEquals(answer, solution.addTwoNumbers(listNode1, listNode2));
+    }
+
+    @Test
+    @DisplayName("3.Longest Substring Without Repeating Characters: normal case")
+    void lengthOfLongestSubstring1() {
+        String s = "abcabcbb";
+        assertEquals(3, solution.lengthOfLongestSubstring(s));
+    }
+
+    @Test
+    @DisplayName("3.Longest Substring Without Repeating Characters: all the same chars")
+    void lengthOfLongestSubstring2() {
+        String s = "bbbbb";
+        assertEquals(1, solution.lengthOfLongestSubstring(s));
+    }
+
+    @Test
+    @DisplayName("3.Longest Substring Without Repeating Characters: substring check")
+    void lengthOfLongestSubstring3() {
+        String s = "pwwkew";
+        assertEquals(3, solution.lengthOfLongestSubstring(s));
+    }
+
+    @Test
+    @DisplayName("6.ZigZag Conversion: normal case, with numRows = 3")
+    void zigzagConvert1() {
+        String s = "PAYPALISHIRING";
+        assertEquals("PAHNAPLSIIGYIR", solution.zigzagConvert(s, 3));
+    }
+
+    @Test
+    @DisplayName("6.ZigZag Conversion: normal case, with numRows = 4")
+    void zigzagConvert2() {
+        String s = "PAYPALISHIRING";
+        assertEquals("PINALSIGYAHRPI", solution.zigzagConvert(s, 4));
+    }
+
+    @Test
+    @DisplayName("6.ZigZag Conversion: special case with numRows = 1")
+    void zigzagConvert3() {
+        String s = "PAYPALISHIRING";
+        assertEquals(s, solution.zigzagConvert(s, 1));
+    }
+
+    @Test
+    @DisplayName("6.ZigZag Conversion: special case with numRows = s.length")
+    void zigzagConvert4() {
+        String s = "PAYPALISHIRING";
+        assertEquals(s, solution.zigzagConvert(s, s.length()));
     }
 
     @Test
     @DisplayName("26.Remove Duplicates from Sorted Array: normal case")
     void removeDuplicates1() {
+        int[] nums = { 1, 2, 2, 3, 4, 5, 5, 7, 7, 7 };
         int[] noDuplicates = { 1, 2, 3, 4, 5, 7 };
         int answer = 6;
-        int length = solution.removeDuplicates(nums3);
+        int length = solution.removeDuplicates(nums);
         assertEquals(answer, length);
-        assertArrayEquals(noDuplicates, Arrays.copyOfRange(nums3, 0, length));
+        assertArrayEquals(noDuplicates, Arrays.copyOfRange(nums, 0, length));
     }
 
     @Test
@@ -82,29 +125,5 @@ class SolutionTest {
         int[] empty = {};
         int length = solution.removeDuplicates(empty);
         assertEquals(0, length);
-    }
-
-    @Test
-    @DisplayName("6. ZigZag Conversion: normal case, with numRows = 3")
-    void zigzagConvert1() {
-        assertEquals("PAHNAPLSIIGYIR", solution.zigzagConvert(s, 3));
-    }
-
-    @Test
-    @DisplayName("6. ZigZag Conversion: normal case, with numRows = 4")
-    void zigzagConvert2() {
-        assertEquals("PINALSIGYAHRPI", solution.zigzagConvert(s, 4));
-    }
-
-    @Test
-    @DisplayName("6. ZigZag Conversion: special case with numRows = 1")
-    void zigzagConvert3() {
-        assertEquals(s, solution.zigzagConvert(s, 1));
-    }
-
-    @Test
-    @DisplayName("6. ZigZag Conversion: special case with numRows = s.length")
-    void zigzagConvert4() {
-        assertEquals(s, solution.zigzagConvert(s, s.length()));
     }
 }
