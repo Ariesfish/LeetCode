@@ -1,7 +1,5 @@
 package com.leetcode;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,7 +86,7 @@ public class Solution {
      * @return Index pair
      * @throws IllegalArgumentException On no solution
      */
-    public int[] twoSum(@NotNull int[] nums, int target) {
+    public int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> numPool = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
@@ -306,7 +304,7 @@ public class Solution {
      * @param nums A sorted array
      * @return New length of the array
      */
-    public int removeDuplicates(@NotNull int[] nums) {
+    public int removeDuplicates(int[] nums) {
         if (nums.length == 0) {
             return 0;
         }
